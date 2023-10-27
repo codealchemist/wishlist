@@ -2,6 +2,12 @@
 
 Simply create a wishlist you can share with your friends so they know what you want for your next birthday 😁
 
+## Live app
+
+Yeah, you can also try the live app here:
+
+https://sharewish.netlify.app
+
 ## Getting Started
 
 For development use:
@@ -28,6 +34,10 @@ TODO:
 
 - [ ] Setup cypress.
 - [ ] Add E2E tests.
+
+## Pending features
+
+- [ ] Share wishes.
 
 ## About
 
