@@ -14,7 +14,7 @@ export default function WishForm ({ onCancel, clearWishToEdit, wishToEdit }) {
   const [form] = Form.useForm()
   const formLayout = {
     labelCol: { span: 4 },
-    wrapperCol: { span: 22, offset: 2 },
+    wrapperCol: { span: 22, offset: 2, sm: 24, xs: 24 },
   }
 
   log({ wishToEdit })
