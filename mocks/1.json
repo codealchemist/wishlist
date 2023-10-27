@@ -1,0 +1,7 @@
+{
+  "name": "Awesome Dude",
+  "wishes": [
+    { "title": "1 BTC", "description": "Money of the future!" },
+    { "title": "Random", "description": "Random description" }
+  ]
+}

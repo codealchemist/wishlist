@@ -1,0 +1,21 @@
+.row {
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-top: 10px;
+}
+
+.button {
+  position: absolute !important;
+  right: 20px;
+  bottom: 20px;
+}
+
+.section {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color6) 50%, black 0%);
+}

@@ -1,0 +1,17 @@
+.section {
+  padding: 20px;
+  width: 100%;
+}
+
+.notFound {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color2) 50%, black 0%);
+}
+
+.notFound p {
+  color: var(--color1);
+}

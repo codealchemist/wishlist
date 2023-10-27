@@ -1,0 +1,42 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 50%;
+  border-top: 1px solid var(--color3);
+  position: absolute;
+  bottom: 5px;
+  left: 25%;
+}
+
+.footer p {
+  white-space: nowrap; 
+  margin: 0;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+a.link {
+  background: var(--color5) !important;
+  color: var(--color1) !important;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 0 3px;
+}
+
+a.link:hover {
+  background: var(--color3) !important;
+  color: var(--color1) !important;
+}

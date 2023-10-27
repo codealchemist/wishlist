@@ -1,0 +1,31 @@
+{
+  "title": "Dynamic title!",
+  "fields": [
+    {
+      "label": "Name",
+      "type": "text",
+      "name": "name",
+      "value": "John Doe",
+      "placeholder": "Enter your name",
+      "rules": [
+        {
+          "required": true,
+          "message": "We need a wish to proceed 😁"
+        }
+      ]
+    },
+    {
+      "label": "Email",
+      "type": "email",
+      "name": "email",
+      "placeholder": "Enter your email",
+      "rules": [
+        {
+          "required": true,
+          "message": "Please, provide an email so we can contact you.",
+          "type": "email"
+        }
+      ]
+    }
+  ]
+}

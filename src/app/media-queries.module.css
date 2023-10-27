@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+  .hideOnSmallScreens {
+    display: none !important;
+  }
+
+  .showOnSmallScreens {
+    display: block !important;
+  }
+}
