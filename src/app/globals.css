@@ -99,3 +99,18 @@ h2.ant-typography {
   margin: 0;
 }
 
+.ant-popover-inner {
+  background: var(--color1) !important;
+}
+
+.ant-popconfirm-title {
+  color: var(--color3) !important;
+}
+
+.ant-popconfirm-description {
+  color: var(--color2) !important;
+}
+
+.ant-popover-arrow:before, .ant-popover-arrow:after {
+  background: var(--color1) !important;
+}

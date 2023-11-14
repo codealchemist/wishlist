@@ -1,5 +1,5 @@
 'use client'
-import { Button, Space } from 'antd'
+import { Button, Space, Popconfirm } from 'antd'
 import hash from 'object-hash'
 import { useStore, useWishesStore } from '@/lib/store/zustand'
 
@@ -23,6 +23,10 @@ export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishi
     <p>{emptyText}</p>
   )
 
+  function onRemove (index) {
+    remove(index)
+  }
+
   // List.
   return (
     <ul>
@@ -31,7 +35,13 @@ export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishi
           <Space>
             <span>{wish.title}</span>
             <Button size='small' type='primary' onClick={() => onEdit(index)}>Edit</Button>
-            <Button size='small' type='primary' danger onClick={() => remove(index)}>Remove</Button>
+            <Popconfirm
+              title='Continue?'
+              description={`"${wish.title}" will be deleted.`}
+              onConfirm={() => onRemove(index)}
+            >
+              <Button size='small' type='primary' danger>Remove</Button>
+            </Popconfirm>
           </Space>
         </li>
       ))}
