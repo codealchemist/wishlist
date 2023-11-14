@@ -12,6 +12,7 @@ import Card from '@/components/Card'
 import messages from '@/lib/messages'
 import styles from './page.module.css'
 import mediaQueries from '@/app/media-queries.module.css'
+import isClient from '@/util/is-client'
 
 function log () {
   console.log('[ Home ]', ...arguments)
@@ -20,9 +21,10 @@ function log () {
 // Get or create a new channelUuid.
 // We can't use the store because it's async.
 // TODO: Look for better solutions, pay attention to Zustand persist lib updates.
-const storedChannelUuid = JSON.parse(
-  localStorage.getItem('sharing-store') || {}
-)?.state?.sharing?.channelUuid || uuid()
+const storedChannelUuid = isClient()
+  ? JSON.parse(window.localStorage.getItem('sharing-store') || {})
+    ?.state?.sharing?.channelUuid || uuid()
+  : null
 
 export default function Home() {
   const { wishes } = useWishesStore()
