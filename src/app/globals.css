@@ -66,3 +66,32 @@ input::placeholder, textarea::placeholder {
   color: var(--color2) !important;
   border-color: color-mix(in srgb, var(--color3) 50%, black 0%) !important;
 }
+
+.ant-card .ant-space-item {
+  margin-bottom: 5px !important;
+}
+
+button:disabled {
+  color: var(--color2) !important;
+}
+
+.ant-notification-notice-wrapper {
+  background: var(--color1) !important;
+}
+
+.ant-notification-notice-message {
+  color: var(--color3) !important;
+}
+
+.ant-notification-notice-description {
+  color: var(--color2) !important;
+}
+
+.ant-typography {
+  color: var(--color2) !important;
+}
+
+h2.ant-typography {
+  margin: 0;
+}
+

@@ -5,17 +5,30 @@
   padding-top: 10px;
 }
 
-.button {
+.addButton {
   position: absolute !important;
   right: 20px;
   bottom: 20px;
 }
 
+.shareButton {
+  position: absolute !important;
+  top: 8px;
+  right: 18px;
+  z-index: 10;
+  background-color: var(--color5);
+}
+
 .section {
   padding: 20px;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: color-mix(in srgb, var(--color6) 50%, black 0%);
+}
+
+.message {
+  color: var(--color3) !important;
 }

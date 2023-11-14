@@ -1,0 +1,10 @@
+.details {
+  height: calc(100vh - 155px);
+  position: relative;
+}
+
+.scrollableContent {
+  overflow-y: auto;
+  margin-bottom: 20px;
+  height: calc(100% - 80px);
+}
