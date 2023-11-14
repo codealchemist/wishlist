@@ -1,7 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import { Row, Col, Button, Modal } from 'antd'
-// import { useChannel } from 'ably/react'
 import { v4 as uuid } from 'uuid'
 import { PlusOutlined, ShareAltOutlined } from '@ant-design/icons'
 import { useStore, useWishesStore, useSharingStore } from '@/lib/store/zustand'
@@ -30,23 +29,11 @@ export default function Home() {
   const { wishes } = useWishesStore()
   const { sharing, setChannelUuid, setUserName } = useSharingStore()
   const channelUuid = storedChannelUuid
-  // const { channel } = useChannel(channelUuid, message => {
-  //   log('got message!', { message })
-  // })
   const modalButtonRef = useRef(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
   const [wishToEdit, setWishToEdit] = useState(null)
-
-  // channel.presence.subscribe('enter', (member) => {
-  //   log('member entered', { member })
-  // })
   log({ channelUuid, sharing, wishes })
-
-  function openShareModal () {
-    // TODO
-    log('Open share modal')
-  }
 
   //------------------------------------------
   // Share modal methods.

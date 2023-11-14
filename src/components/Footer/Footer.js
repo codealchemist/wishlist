@@ -1,7 +1,10 @@
-'use client'
 import { Row, Col } from 'antd'
 import styles from './footer.module.css'
 import mediaQueries from '@/app/media-queries.module.css'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig() || {}
+const { version } = publicRuntimeConfig || {}
 
 export default function Footer () {
   return (
@@ -20,7 +23,7 @@ export default function Footer () {
         </Col>
 
         <Col md={11} sm={24} xs={24}>
-          <p className={styles.textLeft}>Last updated <i>Oct 2023</i></p>
+          <p className={styles.textLeft}>v{version}</p>
         </Col>
       </Row>
     </footer>
