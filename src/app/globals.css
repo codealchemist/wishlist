@@ -114,3 +114,9 @@ h2.ant-typography {
 .ant-popover-arrow:before, .ant-popover-arrow:after {
   background: var(--color1) !important;
 }
+
+@media screen and (max-width: 768px) {
+  .ant-card {
+    max-height: calc(100vh - 70px);
+  } 
+}
