@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "cd netlify/functions/ably-token-request && npm i",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch"
