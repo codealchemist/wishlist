@@ -1,12 +1,13 @@
 'use client'
 import { Button, Space } from 'antd'
+import hash from 'object-hash'
 import { useStore, useWishesStore } from '@/lib/store/zustand'
 
 function log () {
   console.log('[ WishesList ]', ...arguments)
 }
 
-export default function WishesList ({ onEdit }) {
+export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishing! 😉' }) {
   const { wishes, remove } = useStore(useWishesStore)
   log({ wishes, remove })
 
@@ -19,7 +20,7 @@ export default function WishesList ({ onEdit }) {
 
   // Empty.
   if (!wishes?.length) return (
-    <p>Hey! Lets start wishing! 😉</p>
+    <p>{emptyText}</p>
   )
 
   // List.

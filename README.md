@@ -37,7 +37,9 @@ TODO:
 
 ## Pending features
 
-- [ ] Share wishes.
+- [x] Share wishes.
+- [ ] Navigate shared wishes from different people.
+- [ ] Participate functionality.
 
 ## About
 

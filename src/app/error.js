@@ -11,7 +11,7 @@ export default function Error ({ error }) {
         title='Oops, we are sorry about that 😅'
         extra={
           <>
-            <Typography.Paragraph>
+            <Typography.Paragraph className={styles.message}>
               {error?.message}
             </Typography.Paragraph>
             <Link href='/'>

@@ -1,10 +1,11 @@
 {
   "name": "wishlist",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "cd netlify/functions/ably-token-request && npm i",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch"
@@ -12,15 +13,20 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.2",
     "@ant-design/icons": "^5.2.6",
+    "ably": "^1.2.47",
     "antd": "^5.10.2",
     "next": "13.5.6",
+    "object-hash": "^3.0.0",
     "react": "^18",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18",
+    "uuid": "^9.0.1",
     "zustand": "^4.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@netlify/plugin-nextjs": "^4.41.1",
     "babel-jest": "^29.7.0",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",

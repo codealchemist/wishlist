@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google'
 import StyledComponentsRegistry from '@/app/antd-registry'
-import Footer from '@/app/_components/Footer'
-import IconBackground from '@/app/_components/IconBackground/IconBackground'
+import Footer from '@/components/Footer'
+import IconBackground from '@/components/IconBackground/IconBackground'
+import Bootstrap from '@/app/bootstrap'
 import './globals.css'
 import Icon from '@ant-design/icons/lib/components/Icon'
 
@@ -17,11 +18,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <IconBackground />
-          <main>
-            {children}
-            <Footer />
-          </main>
+          <Bootstrap>
+            <IconBackground />
+            <main>
+              {children}
+              <Footer />
+            </main>
+          </Bootstrap>
         </StyledComponentsRegistry>
       </body>
     </html>

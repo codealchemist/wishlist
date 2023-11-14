@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 function log () {
-  console.log('[ useWishesStore ]', ...arguments)
+  console.log('[ wishesSlice ]', ...arguments)
 }
 
 const store = (set, get) => ({
