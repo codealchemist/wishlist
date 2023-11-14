@@ -54,7 +54,7 @@ export default function ShareForm ({ onCancel }) {
   }, [formValues])
 
   return (
-    <Form form={form} onFinish={onFinish} initialValues={sharing}>
+    <Form form={form} onFinish={onFinish} initialValues={sharing?.details}>
       <Form.Item
         {...formLayout}
         label='Your name'

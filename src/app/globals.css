@@ -29,6 +29,10 @@ main {
   height: 100%;
 }
 
+.ant-card {
+  max-height: calc(100vh - 50px);
+}
+
 .ant-card, .ant-modal-content {
   background: color-mix(in srgb, var(--color1) 50%, black 20%) !important;
   color: var(--color3) !important;

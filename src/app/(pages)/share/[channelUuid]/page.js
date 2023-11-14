@@ -16,11 +16,9 @@ function log () {
 
 export default function SharedWishes ({ params }) {
   log({ params })
-  const detailsRef = useRef(null)
   const { channelUuid } = params
   const { sharing, setClientUuid, getSelectedWish } = useSharingStore()
   const { shared, selectedWish, addSharedWishes } = useSharedStore()
-  const modalButtonRef = useRef(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const userName = shared?.[channelUuid]?.details?.userName
   const wishes = shared?.[channelUuid]?.wishes
@@ -62,20 +60,10 @@ export default function SharedWishes ({ params }) {
     }
   }, [sharing])
 
-  useEffect(() => {
-    log({ detailsRef })
-    if (!detailsRef.current) {
-      log('Details not visible')
-      return
-    }
-
-    log('Details visible')
-  }, [detailsRef])
-
   return (
     <Row className={styles.row} gutter={16} justify='center'>
       <Col span={12} className={mediaQueries.hideOnSmallScreens}>
-        <Card title='Wish details' ref={detailsRef}>
+        <Card title='Wish details'>
           <WishDetails channelUuid={channelUuid} wish={selectedWish} />
         </Card>
       </Col>
