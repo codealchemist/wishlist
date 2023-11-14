@@ -16,7 +16,11 @@
   top: 8px;
   right: 18px;
   z-index: 10;
-  background-color: var(--color5);
+  background-color: var(--color5) !important;
+}
+
+.shareButton:hover {
+  background-color: var(--color3) !important;
 }
 
 .section {
