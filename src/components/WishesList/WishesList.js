@@ -1,7 +1,9 @@
 'use client'
 import { Button, Space, Popconfirm } from 'antd'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import hash from 'object-hash'
 import { useStore, useWishesStore } from '@/lib/store/zustand'
+import styles from './wishes-list.module.css'
 
 function log () {
   console.log('[ WishesList ]', ...arguments)
@@ -29,18 +31,22 @@ export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishi
 
   // List.
   return (
-    <ul>
+    <ul className={styles.list}>
       {wishes?.map((wish, index) => (
         <li key={index}>
           <Space>
             <span>{wish.title}</span>
-            <Button size='small' type='primary' onClick={() => onEdit(index)}>Edit</Button>
+            <Button shape='circle' size='small' type='primary' onClick={() => onEdit(index)}>
+              <EditOutlined />
+            </Button>
             <Popconfirm
               title='Continue?'
               description={`"${wish.title}" will be deleted.`}
               onConfirm={() => onRemove(index)}
             >
-              <Button size='small' type='primary' danger>Remove</Button>
+              <Button shape='circle' size='small' type='primary' danger>
+                <DeleteOutlined />
+              </Button>
             </Popconfirm>
           </Space>
         </li>

@@ -1,9 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { Button, Space, Modal } from 'antd'
+import { EyeOutlined } from '@ant-design/icons'
 import { useStore, useSharedStore } from '@/lib/store/zustand'
 import WishDetails from '@/components/WishDetails'
 import mediaQueries from '@/app/media-queries.module.css'
+import styles from '@/components/WishesList/wishes-list.module.css'
 
 function log () {
   console.log('[ ViewWishesList ]', ...arguments)
@@ -48,28 +50,30 @@ export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No w
   // List.
   return (
     <>
-      <ul>
+      <ul className={styles.list}>
         {wishes?.map((wish, index) => (
           <li key={index}>
             <Space>
               <span>{wish.title}</span>
               <Button
+                shape='circle'
                 size='small'
                 type='primary'
                 onClick={() => viewDesktop(index)}
                 className={mediaQueries.hideOnSmallScreens}
               >
-                View
+                <EyeOutlined />
               </Button>
 
               <Button
+                shape='circle'
                 size='small'
                 type='primary'
                 onClick={() => viewMobile(index)}
                 style={{ display: 'none' }}
                 className={mediaQueries.showOnSmallScreens}
               >
-                View
+                <EyeOutlined />
               </Button>
             </Space>
           </li>

@@ -1,0 +1,10 @@
+.list {
+  max-height: calc(100vh - 150px);
+  overflow: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .list {
+    max-height: calc(100vh - 180px);
+  }
+}
