@@ -137,6 +137,46 @@ class Messages {
       }
     })
   }
+
+  newParticipant({ channelUuid, clientUuid, participant, wishIndex }) {
+    log('newParticipant', { channelUuid, clientUuid, participant })
+    this.publish(channelUuid, {
+      type: 'new-participant',
+      channelUuid,
+      clientUuid,
+      participant,
+      wishIndex
+    })
+  }
+
+  onNewParticipant (channelUuid, callback) {
+    log('onNewParticipant', { channelUuid })
+    this.subscribe(channelUuid, message => {
+      if (message?.data?.type === 'new-participant') {
+        callback(message)
+      }
+    })
+  }
+
+  removeParticipant({ channelUuid, clientUuid, participant, wishIndex }) {
+    log('removeParticipant', { channelUuid, clientUuid, participant })
+    this.publish(channelUuid, {
+      type: 'remove-participant',
+      channelUuid,
+      clientUuid,
+      participant,
+      wishIndex
+    })
+  }
+
+  onRemovedParticipant (channelUuid, callback) {
+    log('onRemovedParticipant', { channelUuid })
+    this.subscribe(channelUuid, message => {
+      if (message?.data?.type === 'remove-participant') {
+        callback(message)
+      }
+    })
+  }
 }
 
 const messages = new Messages()

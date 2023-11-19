@@ -1,8 +1,9 @@
 'use client'
-import { Button, Space, Popconfirm } from 'antd'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Button, Space, Popconfirm, Popover } from 'antd'
+import { DeleteOutlined, EditOutlined, UserOutlined } from '@ant-design/icons'
 import hash from 'object-hash'
 import { useStore, useWishesStore } from '@/lib/store/zustand'
+import ParticipantsList from '@/components/ParticipantsList'
 import styles from './wishes-list.module.css'
 
 function log () {
@@ -39,6 +40,7 @@ export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishi
             <Button shape='circle' size='small' type='primary' onClick={() => onEdit(index)}>
               <EditOutlined />
             </Button>
+
             <Popconfirm
               title='Continue?'
               description={`"${wish.title}" will be deleted.`}
@@ -48,6 +50,18 @@ export default function WishesList ({ onEdit, emptyText = 'Hey! Lets start wishi
                 <DeleteOutlined />
               </Button>
             </Popconfirm>
+
+            {wish?.participants?.length > 0 && (
+              <Popover
+                content={<ParticipantsList participants={wish?.participants} />}
+                title='Participants'
+                trigger='click'
+              >
+                <Button size='small' type='default' shape='round'>
+                  <UserOutlined /> {wish?.participants?.length} 
+                </Button>
+              </Popover>
+            )}
           </Space>
         </li>
       ))}

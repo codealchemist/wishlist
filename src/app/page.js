@@ -26,7 +26,7 @@ const storedChannelUuid = isClient()
   : null
 
 export default function Home() {
-  const { wishes } = useWishesStore()
+  const { wishes, addParticipant, removeParticipant } = useWishesStore()
   const { sharing, setChannelUuid, setUserName } = useSharingStore()
   const channelUuid = storedChannelUuid
   const modalButtonRef = useRef(null)
@@ -112,6 +112,34 @@ export default function Home() {
         const details = sharing?.details || {}
         messages.sendWishes({ clientUuid, wishes, details })
       })
+    })
+
+    messages.onNewParticipant(channelUuid, message => {
+      log('Got new participant', { message })
+      const {
+        data: {
+          clientUuid,
+          participant,
+          wishIndex
+        }
+      } = message
+      log({ data: message.data })
+      addParticipant({ index: wishIndex, participant })
+    })
+
+    messages.onRemovedParticipant(channelUuid, message => {
+      log('Removed participant', { message })
+      const { data } = message
+      log({ data })
+      const {
+        data: {
+          clientUuid,
+          participant,
+          wishIndex
+        }
+      } = message
+      log({ data: message.data })
+      removeParticipant({ index: wishIndex, participant })
     })
 
     return () => {

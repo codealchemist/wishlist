@@ -29,6 +29,10 @@ main {
   height: 100%;
 }
 
+ul {
+  color: var(--color3);
+}
+
 .ant-card {
   max-height: calc(100vh - 50px);
 }
@@ -103,7 +107,7 @@ h2.ant-typography {
   background: var(--color1) !important;
 }
 
-.ant-popconfirm-title {
+.ant-popconfirm-title, .ant-popover-title {
   color: var(--color3) !important;
 }
 

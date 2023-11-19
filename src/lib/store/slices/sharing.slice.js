@@ -8,6 +8,7 @@ function log () {
 const store = (set, get) => ({
   sharing: {
     channelUuid: null,
+    clientUuid: null,
     details: {}
   },
   setChannelUuid: channelUuid => set(state => {

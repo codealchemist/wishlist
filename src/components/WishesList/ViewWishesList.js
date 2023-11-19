@@ -1,9 +1,10 @@
 'use client'
 import { useState } from 'react'
-import { Button, Space, Modal } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
+import { Button, Space, Modal, Popover } from 'antd'
+import { EyeOutlined, UserOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import { useStore, useSharedStore } from '@/lib/store/zustand'
 import WishDetails from '@/components/WishDetails'
+import ParticipantsList from '@/components/ParticipantsList'
 import mediaQueries from '@/app/media-queries.module.css'
 import styles from '@/components/WishesList/wishes-list.module.css'
 
@@ -12,9 +13,9 @@ function log () {
 }
 
 export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No wishes yet' }) {
-  log({ wishes })
-  const { setSelectedWish, selectedWish } = useSharedStore()
+  const { participating, setSelectedWishInfo, selectedWishInfo } = useSharedStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  log({ wishes, selectedWishInfo })
 
   // Loading.
   if (!wishes) {
@@ -30,12 +31,12 @@ export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No w
 
   function viewDesktop (index) {
     log('View', { index })
-    setSelectedWish({ channelUuid, wishIndex: index })
+    setSelectedWishInfo({ channelUuid, wishIndex: index })
   }
 
   function viewMobile (index) {
     log('View', { index })
-    setSelectedWish({ channelUuid, wishIndex: index })
+    setSelectedWishInfo({ channelUuid, wishIndex: index })
     setIsModalOpen(true)
   }
 
@@ -75,6 +76,18 @@ export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No w
               >
                 <EyeOutlined />
               </Button>
+
+              { wish?.participants?.length > 0 && (
+                <Popover content={<ParticipantsList participants={wish?.participants} />} title='Participants' trigger='click'>
+                  <Button size='small' type='default' shape='round'>
+                    {wish?.participants?.length} <UserOutlined />
+                  </Button>
+                </Popover>
+              )}
+
+              { participating?.[channelUuid]?.[index] && (
+                <CheckCircleOutlined title='You participate 🎉' />
+              )}
             </Space>
           </li>
         ))}
@@ -89,7 +102,7 @@ export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No w
         footer={null}
         centered
       >
-        <WishDetails channelUuid={channelUuid} wish={selectedWish} />
+        <WishDetails channelUuid={channelUuid} wish={wishes?.[selectedWishInfo?.wishIndex]} />
       </Modal>
     </>
   )

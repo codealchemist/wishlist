@@ -8,6 +8,7 @@ function log () {
 const store = (set, get) => ({
   shared: {},
   selectedWish: null,
+  participating: {},
   addSharedWishes: ({ channelUuid, details, wishes }) => set(state => {
     log('addSharedWishes', { details, wishes })
 
@@ -26,7 +27,7 @@ const store = (set, get) => ({
           wishes
         }
       },
-      selectedWish: null
+      selectedWishInfo: null
     }
   }),
   removeSharedWishes: ({ channelUuid }) => set(state => {
@@ -39,16 +40,74 @@ const store = (set, get) => ({
       shared: draft
     }
   }),
-  setSelectedWish: ({ channelUuid, wishIndex }) => set(state => {
-    log('setSelectedWish', { channelUuid, wishIndex })
+  setSelectedWishInfo: ({ channelUuid, wishIndex }) => set(state => {
+    log('setSelectedWishInfo', { channelUuid, wishIndex })
     if (wishIndex === undefined) return state
-    const selectedWish = state.shared[channelUuid]?.wishes[wishIndex]
-    selectedWish.index = wishIndex
-    log({ selectedWish })
 
     return { 
       ...state,
-      selectedWish
+      selectedWishInfo: { channelUuid, wishIndex }
+    }
+  }),
+  setParticipation: ({ channelUuid, wish, user, participating }) => set(state => {
+    log('setParticipation', { state, channelUuid, wish, user, participating })
+    const draft = state.participating[channelUuid] || {}
+    draft[wish.index] = participating
+
+    // Update participation.
+    return { 
+      ...state,
+      participating: {
+        ...state.participating,
+        [channelUuid]: draft
+      }
+    }
+  }),
+  addParticipant: ({ channelUuid, wishIndex, participant }) => set(state => {
+    log('addParticipant', { channelUuid, wishIndex, participant })
+    const draftWishes = state.shared[channelUuid]?.wishes
+      .map((wish, i) => {
+        if (i !== wishIndex) return wish
+        return {
+          ...wish,
+          participants: [
+            ...(wish.participants || []),
+            participant
+          ]
+        }
+      })
+
+    return {
+      ...state,
+      shared: {
+        ...state.shared,
+        [channelUuid]: {
+          ...state.shared[channelUuid],
+          wishes: draftWishes
+        }
+      }
+    }
+  }),
+  removeParticipant: ({ channelUuid, wishIndex, participant }) => set(state => {
+    log('removeParticipant', { channelUuid, wishIndex, participant })
+    const draftWishes = state.shared[channelUuid]?.wishes
+      .map((wish, i) => {
+        if (i !== wishIndex) return wish
+        return {
+          ...wish,
+          participants: wish.participants.filter(p => p.name !== participant.name && p.email !== participant.email)
+        }
+      })
+    
+    return {
+      ...state,
+      shared: {
+        ...state.shared,
+        [channelUuid]: {
+          ...state.shared[channelUuid],
+          wishes: draftWishes
+        }
+      }
     }
   })
 })
