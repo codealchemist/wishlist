@@ -1,6 +1,7 @@
 'use client'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Row, Col, Button } from 'antd'
+import { ReloadOutlined } from '@ant-design/icons'
 import { v4 as uuid } from 'uuid'
 import { useStore, useWishesStore, useSharedStore, useSharingStore } from '@/lib/store/zustand'
 import { ViewWishesList } from '@/components/WishesList'
@@ -117,6 +118,16 @@ export default function SharedWishes ({ params }) {
       </Col>
 
       <Col md={12} sm={24} xs={24}>
+        <Button
+          type='secondary'
+          shape='circle'
+          size='large'
+          className={styles.refreshButton}
+          onClick={() => window.location.reload()}
+        >
+          <ReloadOutlined />
+        </Button>
+
         <Card title={userName || 'NA'}>
           <ViewWishesList
             channelUuid={channelUuid}
