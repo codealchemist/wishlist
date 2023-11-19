@@ -66,6 +66,12 @@ export default function WishDetails ({ wish, channelUuid }) {
     setIsModalOpen(false)
   }
 
+  useEffect(() => {
+    if (!user?.name) return
+    log('Got user, OK to participate', { user })
+    participate()
+  }, [user])
+
   return (
     <div className={styles.details}>
       <Typography.Title level={2}>{ wish?.title }</Typography.Title>
