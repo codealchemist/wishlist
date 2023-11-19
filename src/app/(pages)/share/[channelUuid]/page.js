@@ -1,8 +1,8 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
-import { Row, Col, Button, Modal } from 'antd'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { Row, Col, Button } from 'antd'
 import { v4 as uuid } from 'uuid'
-import { useWishesStore, useSharedStore, useSharingStore } from '@/lib/store/zustand'
+import { useStore, useWishesStore, useSharedStore, useSharingStore } from '@/lib/store/zustand'
 import { ViewWishesList } from '@/components/WishesList'
 import Card from '@/components/Card'
 import messages from '@/lib/messages/Messages'
@@ -18,23 +18,32 @@ export default function SharedWishes ({ params }) {
   log({ params })
   const { channelUuid } = params
   const { sharing, setClientUuid, getSelectedWish } = useSharingStore()
-  const { shared, selectedWish, addSharedWishes } = useSharedStore()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [subscriptionsInitialized, setSubscriptionsInitialized] = useState(false)
+  // Use `useStore` to avoid hydration errors (it uses `useEffect` internally).
+  const { shared, selectedWishInfo, addSharedWishes, addParticipant, removeParticipant } = useStore(useSharedStore)
   const userName = shared?.[channelUuid]?.details?.userName
   const wishes = shared?.[channelUuid]?.wishes
+  const selectedWish = selectedWishInfo
+    ? {
+        ...wishes?.[selectedWishInfo?.wishIndex],
+        index: selectedWishInfo?.wishIndex
+      }
+    : null
 
   log({ channelUuid, shared })
 
-  useEffect(() => {
-    if (!sharing) return
-    log('Got sharing data', { sharing })
-    const clientUuid = sharing?.clientUuid || uuid()
+  // Init message subscriptions once.
+  // Add and remove participants to reflect other participant actions.
+  function initSubscriptions(clientUuid) {
+    if (!channelUuid) return
+    if (!shared) return
+    setSubscriptionsInitialized(true)
+    if (subscriptionsInitialized) {
+      log('Subscriptions already initialized')
+      return
+    }
 
-    // Subscribe to receive messages on our exclusive channel.
-    messages.subscribe(clientUuid, message => {
-      log('Got message on client channel!', { message })
-    })
-
+    log('Init subscriptions', { channelUuid, clientUuid })
     // Let host know about us so we can communicate on our exclusive channel.
     messages.newClient({ channelUuid, clientUuid })
 
@@ -50,15 +59,54 @@ export default function SharedWishes ({ params }) {
     messages.onGetWishesResponse(clientUuid, message => {
       log('Got wishes response!', { message })
       const { data: { wishes, details } } = message
+      log('Adding shared wishes', { addSharedWishes })
       addSharedWishes({ channelUuid, wishes, details })
     })
-      
 
+    messages.onNewParticipant(channelUuid, message => {
+      log('Got new participant', { message })
+      const { data } = message
+      log({ data })
+      const {
+        channelUuid,
+        clientUuid,
+        participant,
+        wishIndex
+      } = data
+      addParticipant({ channelUuid, wishIndex, participant })
+    })
+
+    messages.onRemovedParticipant(channelUuid, message => {
+      log('Removed participant', { message })
+      const { data } = message
+      log({ data })
+      const {
+        channelUuid,
+        clientUuid,
+        participant,
+        wishIndex
+      } = data
+      removeParticipant({ channelUuid, wishIndex, participant })
+    })
+  }
+
+  useEffect(() => {
+    if (!sharing) return
+    if (!shared) return
+    log('Got sharing data', { sharing })
+    const clientUuid = sharing?.clientUuid || uuid()
+    initSubscriptions(clientUuid)
+      
     if (!sharing?.clientUuid) {
       log('Set clientUuid', { clientUuid })
       setClientUuid(clientUuid)
     }
-  }, [sharing])
+
+    return () => {
+      log('Unsubscribing from client channel', { clientUuid })
+      messages.unsubscribe(clientUuid)
+    }
+  }, [sharing, shared])
 
   return (
     <Row className={styles.row} gutter={16} justify='center'>
