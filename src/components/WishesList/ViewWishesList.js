@@ -15,7 +15,13 @@ function log () {
 export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No wishes yet' }) {
   const { participating, setSelectedWishInfo, selectedWishInfo } = useSharedStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  log({ wishes, selectedWishInfo })
+  const selectedWish = selectedWishInfo
+    ? {
+        ...wishes?.[selectedWishInfo?.wishIndex],
+        index: selectedWishInfo?.wishIndex
+      }
+    : null
+  log({ wishes, selectedWishInfo, selectedWish })
 
   // Loading.
   if (!wishes) {
@@ -102,7 +108,7 @@ export default function ViewWishesList ({ channelUuid, wishes, emptyText = 'No w
         footer={null}
         centered
       >
-        <WishDetails channelUuid={channelUuid} wish={wishes?.[selectedWishInfo?.wishIndex]} />
+        <WishDetails channelUuid={channelUuid} wish={selectedWish} />
       </Modal>
     </>
   )
